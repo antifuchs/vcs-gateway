@@ -26,8 +26,17 @@ verbosep && shift
 
 # run the converters
 
-for converter in "$BASE/converters-enabled/"* ; do 
+if [ "$#" = 0 ] ; then
+	SCRIPTS="$BASE/converters-enabled/"*
+else
+	SCRIPTS="$@"
+fi
+
+for converter in $SCRIPTS ; do 
 	converter_name="$(basename $converter)"
+	if ! [ -f $converter ] && [ -f converters-available/$converter ] ; then
+		converter=converters-available/$converter
+	fi
 	if ! [ -x $converter ] ; then 
 		echo "git-cron: skipping non-executable $converter_name"
 		continue 

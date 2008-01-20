@@ -1,0 +1,6 @@
+To add a new converter:
+
+ * Add a new executable script in converters-available; base it off one of the existing ones, if you like
+ * to enable it, add a symlink from converters-enabled/nn-converter to the script in converters-available.
+
+Then, run git-cron, and you should be done
