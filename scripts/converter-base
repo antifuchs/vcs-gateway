@@ -1,0 +1,38 @@
+### Base functions for converter scripts
+
+CVSIMPORT_FUZZ=900
+
+run_cvsimport () {
+	GIT_EXPORT_DIR=$1;shift
+	REPO_DIR=$1;shift
+	MODULE=$1;shift
+	
+	mkdir -p $GIT_EXPORT_DIR
+	cd $GIT_EXPORT_DIR
+	(git-cvsimport -d $REPO_DIR -z $CVSIMPORT_FUZZ -k "$@" -u -m $MODULE 2>&1 | grep -v '^Skipping' | shout-if-output-longer-than 2) &
+	CVSPID=$!
+	trap "kill $CVSPID" EXIT
+	wait $CVSPID
+	trap - EXIT
+}
+
+run_togit() {
+	GIT_EXPORT_DIR=$1;shift
+	REPO_DIR=$1;shift
+	MODULE=$1;shift
+	
+	if [ -f $1 ] ; then # author translations
+		sed 's/=/	/' $1 > $REPO_DIR/CVSROOT/authormap
+	fi
+	
+	cd ~/dl/hg/fromcvs
+	ruby togit.rb $REPO_DIR $MODULE $GIT_EXPORT_DIR 2>/dev/null
+}
+
+rsync_cvsrepo() {
+	RSYNC_URL=$1; shift
+	REPO_DIR=$1; shift
+	
+	mkdir -p "$REPO_DIR"
+	rsync --delete-after -a "$@" "$RSYNC_URL" $REPO_DIR
+}

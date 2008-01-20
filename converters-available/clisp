@@ -1,0 +1,8 @@
+REPO_DIR="$BASE/source/clisp"
+EXPORT_DIR="$BASE/target/clisp"
+RSYNC_URL='rsync://clisp.cvs.sourceforge.net/cvsroot/clisp/*'
+
+. "$BASE/scripts/converter-base"
+
+rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
+run_cvsimport "$EXPORT_DIR" "$REPO_DIR" clisp
