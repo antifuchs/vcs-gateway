@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+LT=$1
+
+TEMPLOG="/tmp/$(basename $0).$$"
+
+trap 'rm -f "$TEMPLOG"' EXIT
+cat >"$TEMPLOG"
+
+LC=$(echo $(wc -l "$TEMPLOG") | cut -f 1 -d " ")
+if test $LC -gt $LT ; then
+	cat "$TEMPLOG"
+fi

@@ -4,6 +4,9 @@
 BASE="$(cd $(dirname $0); pwd)"
 export BASE
 
+PATH="$BASE/scripts/:$PATH"
+export PATH
+
 # lockfile
 lockfile-create "$BASE"/git.lock
 lockfile-touch "$BASE"/git.lock &
