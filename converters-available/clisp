@@ -5,4 +5,4 @@ RSYNC_URL='rsync://clisp.cvs.sourceforge.net/cvsroot/clisp/*'
 . "$BASE/scripts/converter-base"
 
 rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
-run_cvsimport "$EXPORT_DIR" "$REPO_DIR" clisp
+run_cvsimport "$EXPORT_DIR" "$REPO_DIR" clisp -u

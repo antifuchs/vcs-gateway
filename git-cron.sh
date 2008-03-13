@@ -18,6 +18,7 @@ trap "lockfile-remove $BASE/git.lock" EXIT
 
 # args
 VERBOSE="$1"
+export VERBOSE
 verbosep(){
 	if [ "$VERBOSE" = "-v" ] || [ "$VERBOSE" = "--verbose" ] ; then
 		return 0

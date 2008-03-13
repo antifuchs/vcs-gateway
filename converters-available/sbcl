@@ -13,3 +13,12 @@ fi
 
 rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
 run_cvsimport "$EXPORT_DIR" "$REPO_DIR" sbcl -A "$BASE/etc/sbcl-author-translations" -o master
+
+cd "$EXPORT_DIR"
+# fix tags: for each tag with underscores in it, add a tag with dots.
+for ustag in `git tag | grep _` ; do 
+	dottag="$(echo "$ustag" | tr _ .)"
+	if ! git show-ref -q --tags $dottag; then
+		git tag $dottag $ustag
+	fi
+done
