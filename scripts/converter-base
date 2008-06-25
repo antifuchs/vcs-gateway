@@ -37,6 +37,10 @@ rsync_cvsrepo() {
 	RSYNC_URL=$1; shift
 	REPO_DIR=$1; shift
 	
+	if ! [ -z "$VERBOSE" ] ; then
+		VERBOSEFLAG="-vP"
+	fi
+
 	mkdir -p "$REPO_DIR"
-	rsync --delete-after -a "$@" "$RSYNC_URL" $REPO_DIR
+	rsync $VERBOSEFLAG --delete-after -a "$@" "$RSYNC_URL" $REPO_DIR
 }
