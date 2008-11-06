@@ -4,13 +4,6 @@ RSYNC_URL='rsync://sbcl.cvs.sourceforge.net/cvsroot/sbcl/*'
 
 . "$BASE/scripts/converter-base"
 
-# Check ssh agent (not needed for conversion, but sbcl manual upload)
-. ~/.ssh-agent
-if ! ssh-add -l >/dev/null 2>/dev/null ; then
-	echo "Won't start SBCL git conversion: SSH Agent not running!"
-	exit 1
-fi
-
 rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
 run_cvsimport "$EXPORT_DIR" "$REPO_DIR" sbcl -A "$BASE/etc/sbcl-author-translations" -o master
 
