@@ -1,11 +1,13 @@
 REPO_DIR="$BASE/source/sbcl"
 EXPORT_DIR="$BASE/target/sbcl"
+PAGE_EXPORT_DIR="$BASE/target/sbcl-page"
 RSYNC_URL='rsync://sbcl.cvs.sourceforge.net/cvsroot/sbcl/*'
 
 . "$BASE/scripts/converter-base"
 
 rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
 run_cvsimport "$EXPORT_DIR" "$REPO_DIR" sbcl -A "$BASE/etc/sbcl-author-translations" -o master
+run_cvsimport "$PAGE_EXPORT_DIR" "$REPO_DIR" sbcl-page -A "$BASE/etc/sbcl-author-translations" -o master
 
 cd "$EXPORT_DIR"
 # fix tags: for each tag with underscores in it, add a tag with dots.
