@@ -13,7 +13,7 @@ run_cvsimport () {
 	
 	mkdir -p $GIT_EXPORT_DIR
 	cd $GIT_EXPORT_DIR
-	(git-cvsimport $VERBOSEFLAG -d $REPO_DIR -z $CVSIMPORT_FUZZ -k "$@" -m $MODULE 2>&1 | grep -v '^Skipping' | shout-if-output-longer-than 2) &
+	(git cvsimport $VERBOSEFLAG -d $REPO_DIR -z $CVSIMPORT_FUZZ -k "$@" -m $MODULE 2>&1 | grep -v '^Skipping' | shout-if-output-longer-than 2) &
 	CVSPID=$!
 	trap "kill $CVSPID" EXIT
 	wait $CVSPID
