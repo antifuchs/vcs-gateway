@@ -1,0 +1,14 @@
+# New SLIME converter, since the previous one had an error 
+# (committer ID was missing spaces, and it imported the wrong tz for Helmut's)
+
+REPO_DIR="$BASE/source/slime-fixed"
+EXPORT_DIR="$BASE/target/slime-fixed"
+RSYNC_URL='afuchs@common-lisp.net:/project/slime/cvsroot/'
+
+. "$BASE/scripts/converter-base"
+
+rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
+set -x
+run_cvsimport "$EXPORT_DIR" "$REPO_DIR" slime -A "$BASE/etc/slime-author-translations" -o master
+cd "$REPO_DIR"
+git push --all origin
