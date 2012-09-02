@@ -1,6 +1,6 @@
 REPO_DIR="$BASE/source/mcclim"
 EXPORT_DIR="$BASE/target/mcclim"
-RSYNC_URL='rsync://common-lisp.net/project/mcclim/cvsroot/'
+RSYNC_URL='afuchs@common-lisp.net:/project/mcclim/cvsroot/'
 
 . "$BASE/scripts/converter-base"
 
