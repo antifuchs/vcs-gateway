@@ -29,8 +29,8 @@ run_togit() {
 		sed 's/=/	/' $1 > $REPO_DIR/CVSROOT/authormap
 	fi
 	
-	cd ~/dl/hg/fromcvs
-	ruby togit.rb $REPO_DIR $MODULE $GIT_EXPORT_DIR 2>/dev/null
+	cd ~/fromcvs
+	ruby -rrubygems togit.rb $REPO_DIR $MODULE $GIT_EXPORT_DIR 2>/dev/null
 }
 
 rsync_cvsrepo() {
