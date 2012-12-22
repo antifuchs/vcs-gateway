@@ -7,8 +7,12 @@ RSYNC_URL='afuchs@common-lisp.net:/project/slime/cvsroot/'
 
 . "$BASE/scripts/converter-base"
 
-rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
 set -x
+rsync_cvsrepo "$RSYNC_URL" "$REPO_DIR"
+# The CVS repo needs its LockDir fixed up (would otherwise not be possible to read history):
+rm -rf "$BASE/tmp/slime-fixed"
+mkdir -p "$BASE/tmp/slime-fixed"
+sed -i.old -e "s#^LockDir=.*#LockDir=$BASE/tmp/slime-fixed#" "$REPO_DIR/CVSROOT/config"
 run_cvsimport "$EXPORT_DIR" "$REPO_DIR" slime -A "$BASE/etc/slime-author-translations" -o master
-cd "$REPO_DIR"
+cd "$EXPORT_DIR"
 git push --all origin
